@@ -58,6 +58,7 @@ function App() {
   //   monoindustrial: "monoindustrial",
   // };
 
+
   return (
     <div>
       <Navbar/>
