@@ -1,20 +1,21 @@
-import React from 'react';
-import './Navbar.css';
-
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="navbar">
-      <div className="logo">Your Logo</div>
-      <div className="nav-buttons">
-        <button>Home</button>
-        <button>Python</button>
-        <button>Java</button>
-        <button>C++</button>
-        <button>Web Development</button>
-      </div>
-      <div className="auth-buttons">
-        <button>Login</button>
-        <button>Signup</button>
+      <span
+        className="logo"
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <h1 className="logoTextC">C</h1>
+        <h1 className="logoTextE">E</h1>
+      </span>
+      <div>
+        <Link to={"/web-dev"}>Web Development</Link>
+        <Link to={"/compiler"}>Other Languages</Link>
       </div>
     </div>
   );
