@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   return (
-    <div className="navbar">
+    <div className="navbar bg-black">
       <span
         className="logo"
         onClick={() => {
@@ -14,7 +14,7 @@ const Navbar = () => {
         <h1 className="logoTextE">E</h1>
       </span>
       <div>
-        <Link to={"/web-dev"}>Web Development</Link>
+        <Link to={"/html-css-js"}>Web Development</Link>
         <Link to={"/compiler"}>Other Languages</Link>
       </div>
     </div>

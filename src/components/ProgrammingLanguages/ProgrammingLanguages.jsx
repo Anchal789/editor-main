@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Editor } from "@monaco-editor/react";
+import ThemeDropdown from "../ThemeDropdown/ThemeDropdown";
+import { defineTheme } from "../../lib/definetheme";
+import { languageOptions } from "../../lib/languageOptions";
+import LanguagesDropdown from "../LanguageDropdown/LanguageDropdown";
 // import Select from 'react-select';
 // import { loader } from "@monaco-editor/react";
 
@@ -10,13 +14,33 @@ const OtherLanguages = () => {
   const [status, setStatus] = useState("");
   const [customInput, setCustomInput] = useState("");
   // const [mistake, setMistake] = useState("");
+  const [theme, setTheme] = useState("cobalt");
+  const [language, setLanguage] = useState(languageOptions[0]);
 
-  
+  const onSelectChange = (sl) => {
+    console.log("selected Option...", sl);
+    setLanguage(sl);
+  };
+
+  function handleThemeChange(th) {
+    const theme = th;
+    console.log("theme...", theme);
+
+    if (["light", "vs-dark"].includes(theme.value)) {
+      setTheme(theme);
+    } else {
+      defineTheme(theme.value).then((_) => setTheme(theme));
+    }
+  }
+  useEffect(() => {
+    defineTheme("oceanic-next").then((_) =>
+      setTheme({ value: "oceanic-next", label: "Oceanic Next" })
+    );
+  }, []);
 
   const handleCompile = async () => {
     const formData = {
-      language_id: 71,
-      // encode source code in base64
+      language_id: language.id,
       source_code: btoa(code),
       stdin: btoa(customInput),
     };
@@ -84,17 +108,18 @@ const OtherLanguages = () => {
 
   return (
     <>
+      <LanguagesDropdown onSelectChange={onSelectChange} />
+      <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
       <div className="flex ">
         <Editor
           height="95vh"
           width="60vw"
-          language="python"
+          language={language || "javascript"}
           value={""}
           onChange={(value, event) => {
             setCode(value);
           }}
-          // value={code}
-          theme="pastels-on-dark"
+          theme={theme.value}
         />
         <div>
           <textarea
