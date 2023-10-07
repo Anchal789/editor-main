@@ -1,0 +1,12 @@
+.logo {
+    background-image: linear-gradient(to left, yellow, orange, red);
+    /* background-repeat: no-repeat; */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Steelfish Rg', 'helvetica neue',
+        helvetica, arial, sans-serif;
+    font-weight: 800;
+    -webkit-font-smoothing: antialiased;
+}
