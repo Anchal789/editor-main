@@ -1,6 +1,6 @@
 .logo {
-    background-image: linear-gradient(to left, yellow, orange, red);
-    /* background-repeat: no-repeat; */
+    background-image: linear-gradient(to left, #0000a2, rgb(255, 0, 0));
+    background-repeat: no-repeat;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;

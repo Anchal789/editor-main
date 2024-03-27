@@ -3,15 +3,16 @@ import WebDevelopment from "./components/WebDevelopment/WebDevelopment";
 import { Route, Routes } from "react-router-dom";
 import OtherLanguages from "./components/ProgrammingLanguages/ProgrammingLanguages";
 import Navbar from "./components/Navbar/Navbar";
-import LandingPage from "./components/LandingPage/LandingPage";
 import "./index.css";
+import Animation from "./components/Animation/Animation";
+// import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
-    <div className="absolute h-full w-full max-[277px]:hidden">
+    <div className=" max-[319px]:hidden">
       <Navbar />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<Animation />} />
         <Route path="/html-css-js" element={<WebDevelopment />} />
         <Route path="/compiler" element={<OtherLanguages />} />
       </Routes>

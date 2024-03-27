@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Editor } from "@monaco-editor/react";
 import NightlightRoundOutlinedIcon from "@mui/icons-material/NightlightRoundOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -11,53 +11,53 @@ const WebDevelopment = () => {
   const [cssFrameWork, setCSSFrameWork] = useState("normalCSS");
   const [theme, setTheme] = useState("vs-dark");
 
-  useEffect(() => {
-    const unloadCallback = (event) => {
-      event.preventDefault();
-      event.returnValue = "";
-      return "";
-    };
+  // useEffect(() => {
+  //   const unloadCallback = (event) => {
+  //     event.preventDefault();
+  //     event.returnValue = "";
+  //     return "";
+  //   };
 
-    window.addEventListener("beforeunload", unloadCallback);
-    return () => window.removeEventListener("beforeunload", unloadCallback);
-  }, []);
+  //   window.addEventListener("beforeunload", unloadCallback);
+  //   return () => window.removeEventListener("beforeunload", unloadCallback);
+  // }, []);
 
-  const [consoleLogs, setConsoleLogs] = useState([]);
+  // const [consoleLogs, setConsoleLogs] = useState([]);
 
-  // Capture console messages and add them to the state
-  useEffect(() => {
-    const originalConsoleLog = console.log;
-    const originalConsoleWarn = console.warn;
-    const originalConsoleError = console.error;
-    const originalConsoleTable = console.table;
+  // // Capture console messages and add them to the state
+  // useEffect(() => {
+  //   const originalConsoleLog = console.log;
+  //   const originalConsoleWarn = console.warn;
+  //   const originalConsoleError = console.error;
+  //   const originalConsoleTable = console.table;
 
-    console.log = (...args) => {
-      originalConsoleLog(...args);
-      setConsoleLogs((prevLogs) => [...prevLogs, { type: "log", message: args }]);
-    };
+  //   console.log = (...args) => {
+  //     originalConsoleLog(...args);
+  //     setConsoleLogs((prevLogs) => [...prevLogs, { type: "log", message: args }]);
+  //   };
 
-    console.warn = (...args) => {
-      originalConsoleWarn(...args);
-      setConsoleLogs((prevLogs) => [...prevLogs, { type: "warn", message: args }]);
-    };
+  //   console.warn = (...args) => {
+  //     originalConsoleWarn(...args);
+  //     setConsoleLogs((prevLogs) => [...prevLogs, { type: "warn", message: args }]);
+  //   };
 
-    console.error = (...args) => {
-      originalConsoleError(...args);
-      setConsoleLogs((prevLogs) => [...prevLogs, { type: "error", message: args }]);
-    };
+  //   console.error = (...args) => {
+  //     originalConsoleError(...args);
+  //     setConsoleLogs((prevLogs) => [...prevLogs, { type: "error", message: args }]);
+  //   };
 
-    console.table = (...args) => {
-      originalConsoleTable(...args);
-      setConsoleLogs((prevLogs) => [...prevLogs, { type: "table", message: args }]);
-    };
+  //   console.table = (...args) => {
+  //     originalConsoleTable(...args);
+  //     setConsoleLogs((prevLogs) => [...prevLogs, { type: "table", message: args }]);
+  //   };
 
-    return () => {
-      console.log = originalConsoleLog;
-      console.warn = originalConsoleWarn;
-      console.error = originalConsoleError;
-      console.table = originalConsoleTable;
-    };
-  }, []);
+  //   return () => {
+  //     console.log = originalConsoleLog;
+  //     console.warn = originalConsoleWarn;
+  //     console.error = originalConsoleError;
+  //     console.table = originalConsoleTable;
+  //   };
+  // }, []);
 
   const normalCSS = `
       <html lang="en">
@@ -104,8 +104,7 @@ const WebDevelopment = () => {
     `;
 
   return (
-    <div className="text-black">
-      
+    <div className="text-black h-auto z-0">
       {theme === "vs-dark" ? (
         <LightModeOutlinedIcon
           onClick={() => {
@@ -119,85 +118,92 @@ const WebDevelopment = () => {
           }}
         />
       )}
-      <div className="App">
-        <label htmlFor="html">HTML</label>
-        <Editor
-          height="300px"
-          width="700px"
-          defaultLanguage="html"
-          defaultValue={html}
-          onChange={(value, event) => {
-            setHtml(value);
-          }}
-          // value={code}
-          theme={theme}
-        />
+      <div className="grid lg:grid-flow-col lg:grid-cols-2 sm:grid-flow-row sm:grid-cols-2 ">
+        <div className="App">
+          <label htmlFor="html">HTML</label>
+          <Editor
+            height="300px"
+            width="90%"
+            className="m-1 border border-solid border-black"
+            defaultLanguage="html"
+            defaultValue={html}
+            onChange={(value, event) => {
+              setHtml(value);
+            }}
+            // value={code}
+            theme={theme}
+          />
 
-        <label htmlFor="css">CSS</label>
-        <Editor
-          height="300px"
-          width="700px"
-          defaultLanguage="css"
-          defaultValue={css}
-          onChange={(value, event) => {
-            setCss(value);
-          }}
-          theme={theme}
-        />
+          <label htmlFor="css">CSS</label>
+          <Editor
+            height="300px"
+            width="90%"
+            className="m-1 border border-solid border-black"
+            defaultLanguage="css"
+            defaultValue={css}
+            onChange={(value, event) => {
+              setCss(value);
+            }}
+            theme={theme}
+          />
 
-        <label htmlFor="js">JS</label>
-        <Editor
-          height="300px"
-          width="700px"
-          defaultLanguage="javascript"
-          defaultValue={js}
-          onChange={(value, event) => {
-            setJs(value);
-          }}
-          theme={theme}
-        />
-        <br />
-        {/* <iframe src="https://codepen.io/hubspot/embed/XWBNBRG?height=300&theme-id=39533&default-tab=html%2Cresult&slug-hash=XWBNBRG&editable=true&user=hubspot&name=cp_embed_1" frameborder="0"></iframe> */}
-      </div>
-      <button
-        type={"button"}
-        onClick={() => {
-          setCSSFrameWork("normalCSS");
-        }}
-      >
-        Normal CSS
-      </button>
-      <button
-        type={"button"}
-        onClick={() => {
-          setCSSFrameWork("bootstrap");
-        }}
-      >
-        Bootstrap
-      </button>
-      <button
-        type={"button"}
-        onClick={() => {
-          setCSSFrameWork("tailwind");
-        }}
-      >
-        Tailwind
-      </button>
-      <iframe
-        srcDoc={
-          cssFrameWork === "normalCSS"
-            ? normalCSS
-            : cssFrameWork === "tailwind"
-            ? tailwindCSS
-            : bootstrap
-        }
-        title="webdevelopmentCode"
-      />
-      <button onClick={()=> console.log("displayed")}>Console</button>
+          <label htmlFor="js">JS</label>
+          <Editor
+            height="300px"
+            width="90%"
+            className="m-1 border border-solid border-black"
+            defaultLanguage="javascript"
+            defaultValue={js}
+            onChange={(value, event) => {
+              setJs(value);
+              console.log(event);
+            }}
+            theme={theme}
+          />
+          <br />
+          {/* <iframe src="https://codepen.io/hubspot/embed/XWBNBRG?height=300&theme-id=39533&default-tab=html%2Cresult&slug-hash=XWBNBRG&editable=true&user=hubspot&name=cp_embed_1" frameborder="0"></iframe> */}
+        </div>
+        <div>
+          <button
+            type={"button"}
+            onClick={() => {
+              setCSSFrameWork("normalCSS");
+            }}
+          >
+            Normal CSS
+          </button>
+          <button
+            type={"button"}
+            onClick={() => {
+              setCSSFrameWork("bootstrap");
+            }}
+          >
+            Bootstrap
+          </button>
+          <button
+            type={"button"}
+            onClick={() => {
+              setCSSFrameWork("tailwind");
+            }}
+          >
+            Tailwind
+          </button>
+          <iframe
+            srcDoc={
+              cssFrameWork === "normalCSS"
+                ? normalCSS
+                : cssFrameWork === "tailwind"
+                ? tailwindCSS
+                : bootstrap
+            }
+            title="webdevelopmentCode"
+            className= "w-full h-full overflow-visible"
+          />
+          {/* <button onClick={()=> console.log("displayed")}>Console</button> */}
 
-      <div>
-      <h2>Console Logs</h2>
-      <ul>
+          <div>
+            <h2>Console Logs</h2>
+            {/* <ul>
         {consoleLogs.map((log, index) => (
           <li key={index}>
             <span style={{ color: log.type === "error" ? "red" : "black" }}>
@@ -210,7 +216,9 @@ const WebDevelopment = () => {
             )}
           </li>
         ))}
-      </ul>
+      </ul> */}
+          </div>
+        </div>
       </div>
     </div>
   );

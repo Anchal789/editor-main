@@ -13,7 +13,7 @@ const OtherLanguages = () => {
   const [code, setCode] = useState("");
   const [status, setStatus] = useState("");
   const [customInput, setCustomInput] = useState("");
-  // const [mistake, setMistake] = useState("");
+  const [mistake, setMistake] = useState("");
   const [theme, setTheme] = useState("cobalt");
   const [language, setLanguage] = useState(languageOptions[0]);
 
@@ -68,6 +68,7 @@ const OtherLanguages = () => {
       .catch((err) => {
         let error = err.response ? err.response.data : err;
         console.log(error);
+        setMistake(error);
       });
   };
 
@@ -103,6 +104,7 @@ const OtherLanguages = () => {
       }
     } catch (error) {
       console.log("err", error);
+      setMistake(error);
     }
   };
 
@@ -138,7 +140,7 @@ const OtherLanguages = () => {
             {output}
           </pre>
           <p>Status -{status}</p>
-          {/* <h1>Error - {mistake}</h1> */}
+          <h1>Error - {mistake}</h1>
           <button onClick={handleCompile}>Compile/Execute</button>
         </div>
       </div>
